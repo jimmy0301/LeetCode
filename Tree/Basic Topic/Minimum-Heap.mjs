@@ -1,7 +1,5 @@
-import TreeNode from "./treeNode.mjs";
-
 // Use array to implement maximum heap
-class MaxHeap {
+class MinHeap {
     constructor() {
         this.heap = [];
         this.size = 0;
@@ -13,7 +11,7 @@ class MaxHeap {
         this.size += 1;
     }
 
-    getMax() {
+    getMin() {
         const value = this.heap[0];
         this.heap[0] = this.heap[this.heap.length - 1];
         this.heap.pop();
@@ -29,7 +27,7 @@ class MaxHeap {
 
     swim(k) {
         while (k > 0 && 
-            this.heap[parseInt((k -1) / 2, 10)] < this.heap[k]
+            this.heap[parseInt((k -1) / 2, 10)] > this.heap[k]
         ) {
             const temp = this.heap[parseInt((k -1) / 2, 10)];
             this.heap[parseInt((k -1) / 2, 10)] = this.heap[k];
@@ -42,12 +40,12 @@ class MaxHeap {
         while (k * 2 + 1 < this.heap.length) {
 			let j = k * 2 + 1
 			if (k * 2 + 2 < this.heap.length &&
-                this.heap[k * 2 + 2] > this.heap[k * 2 + 1]
+                this.heap[k * 2 + 2] < this.heap[k * 2 + 1]
             ) {
 				j = k * 2 + 2
             }
 
-			if (this.heap[j] > this.heap[k]) {
+			if (this.heap[j] < this.heap[k]) {
 				const temp = this.heap[j];
                 this.heap[j] = this.heap[k];
                 this.heap[k] = temp;
@@ -58,16 +56,16 @@ class MaxHeap {
     }
 }
 
-const maxHeap = new MaxHeap();
+const minHeap = new MinHeap();
 
-const a = [3,7, 6, 7, 8, 9];
+const a = [3, 7, 6, 7, 8, 9];
 
 for (let i = 0; i < a.length; i += 1) {
-    maxHeap.insert(a[i]);
+    minHeap.insert(a[i]);
 }
 
-console.log('heap size', maxHeap.size);
+console.log('heap size', minHeap.size);
 for (let i = 0; i < a.length; i += 1) {
-    console.log(maxHeap.getMax());
-    console.log('heap size', maxHeap.size);
+    console.log('val:', minHeap.getMin());
+    console.log('heap size', minHeap.size);
 }
